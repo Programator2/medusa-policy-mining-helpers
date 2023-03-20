@@ -2,17 +2,17 @@
 
 # This script runs some service and gets audit data.
 
-SERVICE=postgresql
-ENTRY_PATH=/usr/bin/pg_ctlcluster
-CONSTABLE_CONFIG=/home/roderik/Constable/constable/minimal/constable.conf
-MEDUSA_CONFIG=/home/roderik/Constable/constable/minimal/clean.conf
-CONSTABLE_PATH=/home/roderik/Constable/constable
+: ${SERVICE:=postgresql}
+: ${ENTRY_PATH:=/usr/bin/pg_ctlcluster}
+: ${CONSTABLE_CONFIG:=/home/roderik/Constable/constable/minimal/constable.conf}
+: ${MEDUSA_CONFIG:=/home/roderik/Constable/constable/minimal/clean.conf}
+: ${CONSTABLE_PATH:=/home/roderik/Constable/constable}
 
-# SERVICE=sshd
-# ENTRY_PATH=/usr/sbin/sshd
+# ${SERVICE:=sshd}
+# ${ENTRY_PATH:=/usr/sbin/sshd}
 #
-# SERVICE=mariadb
-# ENTRY_PATH=/usr/sbin/sshd
+# ${SERVICE:=mariadb}
+# ${ENTRY_PATH:=/usr/sbin/sshd}
 
 dir=$PWD
 sudo systemctl stop $SERVICE
