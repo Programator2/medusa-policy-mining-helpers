@@ -27,7 +27,7 @@ constable_pid=$!
 sleep 1
 # check audit
 audit_logfile=$dir/$(date +%Y-%m-%dT%H%M%S)-$SERVICE.log
-sudo bash -c "tail -F /var/log/audit/audit.log > $audit_logfile" &
+tail -n1 /var/log/audit/audit.log > $dir/last_line_from_audit.log
 echo Starting $SERVICE...
 sudo systemctl start $SERVICE
 sleep 5
@@ -35,8 +35,7 @@ echo Stopping $SERVICE...
 sudo systemctl stop $SERVICE
 sleep 1
 sudo sync /var/log/audit/audit.log
-sync $audit_logfile
-kill $!
+sudo bash -c "$dir/read_from.py /var/log/audit/audit.log $dir/last_line_from_audit.log > $audit_logfile"
 # kill Constable
 echo Killing Constable...
 sudo kill $constable_pid
