@@ -35,7 +35,8 @@ echo Stopping $SERVICE...
 sudo systemctl stop $SERVICE
 sleep 1
 sudo sync /var/log/audit/audit.log
-sudo bash -c "$dir/read_from.py /var/log/audit/audit.log $dir/last_line_from_audit.log > $audit_logfile"
+audit_log_files=$(ls -t -r /var/log/audit/audit.log*)
+$dir/read_from.py <(cat $audit_log_files) $dir/last_line_from_audit.log > $audit_logfile
 # kill Constable
 echo Killing Constable...
 sudo kill $constable_pid
